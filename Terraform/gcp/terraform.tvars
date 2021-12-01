@@ -14,3 +14,12 @@ disk_space        = 10
 database_name     = "dbname"
 db_username       = "dbuser"
 db_password       = "dbpassword"
+
+#bucket
+bucket="databootcampcglllbucket"
+
+#service account
+name="airflow"
+
+#user
+email_user="cglllcglll@gmail.com"

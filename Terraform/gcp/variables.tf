@@ -55,3 +55,15 @@ variable "db_password" {
   description = "Password credentials for root user"
   default     = "dbpassword"
 }
+
+variable "bucket"{
+    description="bucket"
+}
+
+variable "name"{
+    description="account name"
+}
+
+variable "email_user"{
+  description="email_user"
+}

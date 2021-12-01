@@ -1,3 +1,21 @@
+module "service-account"{
+  source="./modules/service-account"
+   project_id  = var.project_id
+   name  = var.name
+   user=var.email_user
+}
+
+module "storage"{
+  source="./modules/storage"
+  bucket=var.bucket
+  location=var.region
+  project_id  = var.project_id
+  depends_on = [module.service-account]
+  service_account="${module.service-account.googleserviceID}"
+
+
+}
+
 module "vpc" {
   source = "./modules/vpc"
 
@@ -31,3 +49,4 @@ module "cloudsql" {
   db_username       = var.db_username
   db_password       = var.db_password
 }
+
