@@ -55,7 +55,7 @@ def csv_to_postgres():
     curr = get_postgres_conn.cursor()
     #clean(file_path("user_purchase.csv"),file_path("output.csv"))
     #Load table
-    with open(file_path("output.csv"),"r") as f:
+    with open(file_path("user_purchase.csv"),"r") as f:
         next(f)
         for row in f:
             row.replace('"','')
