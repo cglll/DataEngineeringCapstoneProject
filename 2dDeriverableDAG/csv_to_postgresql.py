@@ -59,7 +59,20 @@ def csv_to_postgres():
         next(f)
         for row in f:
             row.replace('"','')
-        curr.copy_from(f, 'user_purchase', sep=",")
+            curr.execute("""
+                INSERT INTO user_purchase
+                VALUES ('{}', '{}', '{}', '{}','{}','{}','{}','{}')
+            """.format(
+            row.split(",")[0],
+            row.split(",")[1],
+            row.split(",")[2],
+            row.split(",")[3],
+            row.split(",")[4],
+            row.split(",")[5],
+            row.split(",")[6],
+            row.split(",")[7])
+            )
+        #curr.copy_from(f, 'user_purchase', sep=",")
         logging.info("the message you want {}".format(f))
         get_postgres_conn.commit()
 
