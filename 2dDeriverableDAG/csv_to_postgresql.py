@@ -53,7 +53,7 @@ def csv_to_postgres():
     pg_hook=PostgresHook(postgress_conn_id="postgres_default")
     get_postgres_conn=PostgresHook(postgres_conn_id='postgres_default').get_conn()
     curr = get_postgres_conn.cursor()
-    clean("user_purchase.csv","output.csv")
+    clean(file_path("user_purchase.csv"),file_path("output.csv"))
     #Load table
     with open(file_path("output.csv"),"r") as f:
         next(f)
