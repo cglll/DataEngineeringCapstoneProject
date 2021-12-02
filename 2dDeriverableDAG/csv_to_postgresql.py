@@ -43,7 +43,7 @@ def csv_to_postgres():
     get_postgres_conn=PostgresHook(postgres_conn_id='postgres_default').get_conn()
     curr = get_postgres_conn.cursor()
     #Load table
-    with open(file_path("2dDeriverableDAG/user_purchase.csv"),"r") as f:
+    with open(file_path("user_purchase.csv"),"r") as f:
         next(f)
         logging.info("the message you want {}".format(f))
         curr.copy_from(f,'user_purchase',sep=",")
