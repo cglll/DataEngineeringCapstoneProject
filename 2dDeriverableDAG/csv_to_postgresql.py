@@ -45,6 +45,7 @@ def csv_to_postgres():
     #Load table
     with open(file_path("user_purchase.csv"),"r") as f:
         next(f)
+        f.replace('"', '')
         logging.info("the message you want {}".format(f))
         curr.copy_from(f,'user_purchase',sep=",")
         get_postgres_conn.commit()
