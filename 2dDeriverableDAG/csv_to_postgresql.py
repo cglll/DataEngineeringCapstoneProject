@@ -58,8 +58,8 @@ def csv_to_postgres():
     with open(file_path("user_purchase.csv"),"r") as f:
         next(f)
         for row in f:
-            row.replace('"','')
-            row.replace('\'','')
+            row=row.replace('"','')
+            row=row.replace("'",'')
             curr.execute("""
                 INSERT INTO user_purchase
                 VALUES ('{}', '{}', '{}', '{}','{}','{}','{}','{}')
