@@ -12,7 +12,7 @@ default_args={
     'depends_on past':False,
     'start_date':datetime(2021,12,1),
     'email':['cglllcglll@gmail.com'],
-    'email_on_failuere':True,
+    'email_on_failure':True,
     'email_on_retry':False,
     'retries':2,
     'retry_delay':timedelta(minutes=1)
@@ -27,7 +27,7 @@ dag=DAG('postgres_to_gcs',
 #Change the identifiers
 GOOGLE_CONN_ID="google_cloud_default"
 POSTGRES_CONN_ID="postgres_default"
-FILENAME="user.purchase"
+FILENAME="user.parquet"
 SQL_QUERY="select * from user_purchase"
 bucket_name="databootcampcglllbucket_f1ec"
 
@@ -48,6 +48,6 @@ upload_data_server_side_cursor=PostgresToGCSOperator(
             gzip=False,
             use_server_side_cursor=True,
             export_format='parquet',
-            dat=dag)
+            dag=dag)
 
 upload_data>>upload_data_server_side_cursor
