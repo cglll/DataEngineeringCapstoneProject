@@ -64,9 +64,9 @@ def csv_to_postgres():
             if(len(row_arr)<=8):
                 if (row_arr[6]==''):
                     row_arr[6]=0
-            if(len(row_arr[7])>21):
-                limit = 20
-                row_arr[7] = row_arr[7][:limit] + '..' * (len(row_arr[7]) > limit)
+                if(len(row_arr[7])>21):
+                    limit = 20
+                    row_arr[7] = row_arr[7][:limit] + '..' * (len(row_arr[7]) > limit)
                 curr.execute("""
                     INSERT INTO user_purchase
                     VALUES ('{}', '{}', '{}', '{}','{}','{}','{}','{}')
