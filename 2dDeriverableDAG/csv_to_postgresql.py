@@ -8,7 +8,7 @@ from airflow.hooks.postgres_hook import PostgresHook
 from datetime import timedelta
 from datetime import datetime
 import logging
-
+import csv
 
 ##CSV to postgresi n GCP Cloud SQL Instance
 
@@ -37,15 +37,26 @@ def file_path(relative_path):
     new_path=os.path.join(dir,*split_path)
     return new_path
 
+def clean(input,output):
+    with open(input, "r") as source:
+        reader = csv.reader(source)
+        with open(output, "w") as result:
+            writer = csv.writer(result)
+            for r in reader:
+            # Use CSV Index to remove a column from CSV
+            #r[3] = r['year']
+                r.replace('"', '')
+                writer.writerow((r))
+
 def csv_to_postgres():
     #Open postgres connection
     pg_hook=PostgresHook(postgress_conn_id="postgres_default")
     get_postgres_conn=PostgresHook(postgres_conn_id='postgres_default').get_conn()
     curr = get_postgres_conn.cursor()
+    clean("user_purchase.csv","output.csv")
     #Load table
-    with open(file_path("user_purchase.csv"),"r") as f:
+    with open(file_path("output.csv"),"r") as f:
         next(f)
-        f.replace('"', '')
         logging.info("the message you want {}".format(f))
         curr.copy_from(f,'user_purchase',sep=",")
         get_postgres_conn.commit()
