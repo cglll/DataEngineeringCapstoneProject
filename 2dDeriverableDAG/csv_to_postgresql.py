@@ -68,14 +68,14 @@ def csv_to_postgres():
                     INSERT INTO user_purchase
                     VALUES ('{}', '{}', '{}', '{}','{}','{}','{}','{}')
                 """.format(
-                row_arr(",")[0],
-                row_arr(",")[1],
-                row_arr(",")[2],
-                row_arr(",")[3],
-                row_arr(",")[4],
-                row_arr(",")[5],
-                row_arr(",")[6],
-                row_arr(",")[7])
+                row_arr[0],
+                row_arr[1],
+                row_arr[2],
+                row_arr[3],
+                row_arr[4],
+                row_arr[5],
+                row_arr[6],
+                row_arr[7])
                 )
         #curr.copy_from(f, 'user_purchase', sep=",")
         logging.info("the message you want {}".format(f))
