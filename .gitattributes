@@ -1,1 +1,2 @@
 \bucket_files\raw_data\user_purchase.csv filter=lfs diff=lfs merge=lfs -text
+/bucket_files/raw-data/movie_review.csv filter=lfs diff=lfs merge=lfs -text
