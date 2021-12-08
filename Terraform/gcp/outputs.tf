@@ -22,3 +22,8 @@ output "kubernetes_cluster_host" {
   value       = module.gke.kubernetes_cluster_host
   description = "GKE Cluster Host"
 }
+
+output "bucketrandomname"{
+  value module.storage.bucketname
+  description="bucket name"
+}
