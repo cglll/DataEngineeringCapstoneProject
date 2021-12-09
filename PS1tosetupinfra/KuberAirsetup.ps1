@@ -15,6 +15,8 @@ helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs
     --namespace storage `
     --set nfs.server=$env:NFS_SERVER `
     --set nfs.path=/
+#Airlflow setup
+kubectl create namespace airflow
 helm install airflow -f airflow-values.yaml apache-airflow/airflow --namespace airflow
 kubectl get pods -n airflow
 pause

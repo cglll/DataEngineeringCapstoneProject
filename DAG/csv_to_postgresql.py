@@ -4,6 +4,7 @@ import psycopg2
 from airflow import DAG
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
+from airflow.operators.bash_operator import BashOperator
 from airflow.hooks.postgres_hook import PostgresHook
 from datetime import timedelta
 from datetime import datetime
@@ -85,7 +86,15 @@ def csv_to_postgres():
         get_postgres_conn.commit()
 
 
+
+
     #Task
+
+task0=BashOperator(
+                    task_id='download_file',
+                    bash_command="gsutil cp gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv .",
+                    xcom_push=True
+                    )
 
 task1=PostgresOperator(task_id='create_table',
                         sql="""
@@ -109,7 +118,7 @@ task2=PythonOperator(task_id='csv_to_database',
                     dag=dag)
 
 
-task1>>task2
+task0>>task1>>task2
 
 
 
