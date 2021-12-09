@@ -7,6 +7,9 @@ from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.models import Variable
+from airflow.providers.google.cloud.transfers.gcs_to_local import GCSToLocalFilesystemOperator
+from airflow import models
+
 from datetime import timedelta
 from datetime import datetime
 import logging
@@ -57,7 +60,7 @@ def csv_to_postgres():
     curr = get_postgres_conn.cursor()
     #clean(file_path("user_purchase.csv"),file_path("output.csv"))
     #Load table
-    with open(file_path("user_purchase.csv"),"r") as f:
+    with open(os.getenv('AIRFLOW_HOME')+"\user_purchase.csv","r") as f:
         next(f)
         for row in f:
             row=row.replace('"','')
@@ -90,32 +93,15 @@ def csv_to_postgres():
 
 #GOOGLE_APPLICATION_CREDENTIALS=Variable.get('json')
 
-def save_cred_to_file():
-    text_file = open(file_path("cred.csv"), "w")
-    n = text_file.write(Variable.get('json'))
-    text_file.close()
 
-def download():
-    from google.cloud import storage
-        Google.Apis.Auth.OAuth2.GoogleCredential cred = Google.Apis.Auth.OAuth2.GoogleCredential.FromJson(JSONString);
-        var storage = Google.Cloud.Storage.V1.StorageClient.Create(cred);
-
-    # If you don't specify credentials when constructing the client, the
-    # client library will look for credentials in the environment.
-    storage_client = storage.Client.from_service_account_json(GOOGLE_APPLICATION_CREDENTIALS)
-
-    with open(file_path("user_purchase.csv")) as file_obj:
-        storage_client.download_blob_to_file("gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv", file_obj)
-    #Task
                     
 
-task1=PythonOperator(
-                    task_id='download_file',
-                    provide_context=True,
-                    python_callable=download,
-                    #bash_command="gsutil cp gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv .",
-                    dag=dag
-                    )
+task1=GCSToLocalFilesystemOperator(
+    task_id='download_file',
+    object_name='/k/raw-data/user_purchase.csv',
+    bucket='databootcampcglllbucket_310c',
+    filename='user_purchase.csv'
+)
 
 task2=PostgresOperator(task_id='create_table',
                         sql="""
@@ -139,7 +125,7 @@ task3=PythonOperator(task_id='csv_to_database',
                     dag=dag)
 
 
-task2>>task3
+task1>>task2>>task3
 
 
 
