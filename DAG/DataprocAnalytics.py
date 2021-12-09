@@ -54,7 +54,8 @@ create_dataproc_cluster = DataprocCreateClusterOperator(
     # See https://airflow.apache.org/code.html#default-variables
     cluster_name='ReviewNLP',
     cluster_config=CLUSTER_GENERATOR_CONFIG,
-    project_id='debootcampcglll')
+    project_id='debootcampcglll',
+    dag=dag)
 
 
 
