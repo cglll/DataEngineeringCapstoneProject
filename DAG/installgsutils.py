@@ -26,7 +26,7 @@ dag = DAG('install_gsutils', description='Install gsutils',
           start_date=datetime(2017, 3, 20), catchup=False)
 
 task0=BashOperator(
-                    task_id='install gsutils',
+                    task_id='install_gsutils',
                     bash_command="pip install gsutil",
                     dag=dag
                     )
