@@ -33,7 +33,7 @@ CLUSTER_CONFIG = {
     },
 }
 
-CLUSTER_GENERATOR_CONFIG = ClusterGenerator(
+CLUSTER_GENERATOR_CONFIG = dataproc_operator.ClusterGenerator(
     project_id="debootcampcgll",
     zone="us-central1-a",
     master_machine_type="n1-standard-4",
