@@ -72,6 +72,7 @@ create_dataproc_cluster = dataproc_operator.DataprocClusterCreateOperator(
     gcp_conn_id='google-dataproc',
     master_machine_type='n1-standard-4',
     worker_machine_type='n1-standard-4',
+    project_id='debootcampcglll',
     dag=dag)
 
 PYSPARK_JOB = {
