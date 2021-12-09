@@ -6,7 +6,7 @@ from airflow import DAG
 from datetime import datetime
 from datetime import timedelta
 
-CLUSTER_NAME=reviewnlp
+CLUSTER_NAME='reviewnlp'
 #default
 default_args={
     'owner':'cglll',
