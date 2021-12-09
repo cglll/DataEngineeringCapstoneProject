@@ -39,6 +39,7 @@ CLUSTER_GENERATOR_CONFIG = ClusterGenerator(
     zone="us-central1-a",
     master_machine_type="n1-standard-4",
     worker_machine_type="n1-standard-4",
+    image_version='1.4-debian10',
     num_workers=2,
     storage_bucket="debootcamptest",
     init_actions_uris=['gs://debootcamptest/scripts/python-setup-dataproc/pip-install.sh'],
@@ -50,9 +51,7 @@ create_dataproc_cluster = dataproc_operator.DataprocClusterCreateOperator(
     # Give the cluster a unique name by appending the date scheduled.
     # See https://airflow.apache.org/code.html#default-variables
     cluster_name='ReviewNLP',
-    zone='us-central1',
     cluster_config=CLUSTER_GENERATOR_CONFIG,
-    image_version='1.4-debian10',
     gcp_conn_id="google_cloud_default",
     project_id='debootcampcglll',
     dag=dag)
