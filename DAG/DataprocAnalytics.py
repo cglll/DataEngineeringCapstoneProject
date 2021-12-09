@@ -1,5 +1,7 @@
 from airflow.contrib.operators import dataproc_operator
-from airflow.providers.google.cloud.operators.dataproc import (ClusterGenerator,DataprocSubmitJobOperator)
+from airflow.providers.google.cloud.operators.dataproc import (ClusterGenerator,
+                                                                DataprocSubmitJobOperator,
+                                                                DataprocCreateClusterOperator)
 from airflow import DAG
 from datetime import datetime
 from datetime import timedelta
@@ -46,7 +48,7 @@ CLUSTER_GENERATOR_CONFIG = ClusterGenerator(
     metadata={'PIP_PACKAGES=google-cloud-storage spark-nlp==2.7.2'},
 ).make()
 
-create_dataproc_cluster = dataproc_operator.DataprocClusterCreateOperator(
+create_dataproc_cluster = DataprocCreateClusterOperator(
     task_id='create_dataproc_cluster',
     # Give the cluster a unique name by appending the date scheduled.
     # See https://airflow.apache.org/code.html#default-variables
