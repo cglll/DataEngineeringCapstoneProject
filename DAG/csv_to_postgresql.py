@@ -100,7 +100,7 @@ def csv_to_postgres():
 
 task1=GCSToLocalFilesystemOperator(
     task_id='download_file',
-    object_name='gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv',
+    object_name='k/raw-data/user_purchase.csv',
     bucket='databootcampcglllbucket_310c',
     filename='user_purchase.csv',
     dag=dag
