@@ -32,16 +32,25 @@ CLUSTER_CONFIG = {
         "disk_config": {"boot_disk_type": "pd-standard", "boot_disk_size_gb": 500},
     },
 }
+
+CLUSTER_GENERATOR_CONFIG = ClusterGenerator(
+    project_id="debootcampcgll",
+    zone="us-central1-a",
+    master_machine_type="n1-standard-4",
+    worker_machine_type="n1-standard-4",
+    num_workers=2,
+    storage_bucket="debootcamptest",
+    init_actions_uris=['gs://debootcamptest/scripts/python-setup-dataproc/pip-install.sh'],
+    metadata={'PIP_PACKAGES=google-cloud-storage spark-nlp==2.7.2'},
+).make()
+
 create_dataproc_cluster = dataproc_operator.DataprocClusterCreateOperator(
     task_id='create_dataproc_cluster',
     # Give the cluster a unique name by appending the date scheduled.
     # See https://airflow.apache.org/code.html#default-variables
     cluster_name='ReviewNLP',
-    num_workers=4,
     zone='us-central1',
-    cluster_config=CLUSTER_CONFIG,
-    metadata='PIP_PACKAGES=google-cloud-storage spark-nlp==2.7.2',
-    init_actions_uris=['gs://debootcamptest/scripts/python-setup-dataproc/pip-install.sh'],
+    cluster_config=CLUSTER_GENERATOR_CONFIG,
     image_version='1.4-debian10',
     gcp_conn_id="google_cloud_default",
     project_id='debootcampcglll',
