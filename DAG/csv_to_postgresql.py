@@ -57,10 +57,17 @@ def clean(input,output):
 
 def csv_to_postgres():
     #Open postgres connection
+    from os import walk
+
+    filenames = next(walk(AIRFLOW_HOME), (None, None, []))[2] 
+    print(filenames) # [] if no file
+    print(os.path.exists(AIRFLOW_HOME+"/user_purchase.csv"))
+
     pg_hook=PostgresHook(postgress_conn_id="postgres_default")
     get_postgres_conn=PostgresHook(postgres_conn_id='postgres_default').get_conn()
     curr = get_postgres_conn.cursor()
     #clean(file_path("user_purchase.csv"),file_path("output.csv"))
+
     #Load table
     with open(AIRFLOW_HOME+"/user_purchase.csv","r") as f:
         next(f)
