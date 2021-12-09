@@ -9,6 +9,8 @@ from airflow.hooks.postgres_hook import PostgresHook
 from airflow.models import Variable
 from airflow.providers.google.cloud.transfers.gcs_to_local import GCSToLocalFilesystemOperator
 from airflow import models
+from airflow.settings import AIRFLOW_HOME
+
 
 from datetime import timedelta
 from datetime import datetime
@@ -60,8 +62,7 @@ def csv_to_postgres():
     curr = get_postgres_conn.cursor()
     #clean(file_path("user_purchase.csv"),file_path("output.csv"))
     #Load table
-    print(os.getenv('AIRFLOW_HOME'))
-    with open(os.path.join(os.getenv('AIRFLOW_HOME'),"\user_purchase.csv"),"r") as f:
+    with open(AIRFLOW_HOME+"\user_purchase.csv"),"r") as f:
         next(f)
         for row in f:
             row=row.replace('"','')
