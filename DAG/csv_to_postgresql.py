@@ -86,17 +86,25 @@ def csv_to_postgres():
         get_postgres_conn.commit()
 
 
+GOOGLE_CONN_ID="google_cloud_default"
 
 
     #Task
-
 task0=BashOperator(
-                    task_id='download_file',
-                    bash_command="gsutil cp gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv .",
+                    task_id='authenticate_servaccount',
+                    bash_command="gcloud auth activate-service-account --key-file=$json",
+                    google_cloud_conn_id='google_cloud_default'
                     dag=dag
                     )
 
-task1=PostgresOperator(task_id='create_table',
+task1=BashOperator(
+                    task_id='download_file',
+                    bash_command="gsutil cp gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv .",
+                    google_cloud_conn_id='google_cloud_default'
+                    dag=dag
+                    )
+
+task2=PostgresOperator(task_id='create_table',
                         sql="""
                             CREATE TABLE IF NOT EXISTS user_purchase (
                                 invoice_number varchar(10),
@@ -112,7 +120,7 @@ task1=PostgresOperator(task_id='create_table',
                                 autocommit=True,
                                 dag=dag)
 
-task2=PythonOperator(task_id='csv_to_database',
+task3=PythonOperator(task_id='csv_to_database',
                     provide_context=True,
                     python_callable=csv_to_postgres,
                     dag=dag)
