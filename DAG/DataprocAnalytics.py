@@ -1,4 +1,5 @@
 from airflow.contrib.operators import dataproc_operator
+from airflow.providers.google.cloud.operators.dataproc import ClusterGenerator
 from airflow import DAG
 from datetime import datetime
 from datetime import timedelta
@@ -33,7 +34,7 @@ CLUSTER_CONFIG = {
     },
 }
 
-CLUSTER_GENERATOR_CONFIG = dataproc_operator.ClusterGenerator(
+CLUSTER_GENERATOR_CONFIG = ClusterGenerator(
     project_id="debootcampcgll",
     zone="us-central1-a",
     master_machine_type="n1-standard-4",
