@@ -19,6 +19,19 @@ dag = DAG('Review_analytics', description='Hello World DAG',
           schedule_interval='0 12 * * *',
           start_date=datetime(2017, 3, 20), catchup=False)
 
+
+CLUSTER_CONFIG = {
+    "master_config": {
+        "num_instances": 1,
+        "machine_type_uri": "n1-standard-4",
+        "disk_config": {"boot_disk_type": "pd-standard", "boot_disk_size_gb": 500},
+    },
+    "worker_config": {
+        "num_instances": 4,
+        "machine_type_uri": "n1-standard-4",
+        "disk_config": {"boot_disk_type": "pd-standard", "boot_disk_size_gb": 500},
+    },
+}
 create_dataproc_cluster = dataproc_operator.DataprocClusterCreateOperator(
     task_id='create_dataproc_cluster',
     # Give the cluster a unique name by appending the date scheduled.
@@ -26,16 +39,15 @@ create_dataproc_cluster = dataproc_operator.DataprocClusterCreateOperator(
     cluster_name='ReviewNLP',
     num_workers=4,
     zone='us-central1',
-    master_machine_type='n1-standard-4',
-    worker_machine_type='n1-standard-4',
-    worker_boot_disk_size=500,
-    master_boot_disk_size=500,
+    cluster_config=CLUSTER_CONFIG,
     metadata='PIP_PACKAGES=google-cloud-storage spark-nlp==2.7.2',
     init_actions_uris=['gs://debootcamptest/scripts/python-setup-dataproc/pip-install.sh'],
     image_version='1.4-debian10',
     gcp_conn_id="google_cloud_default",
     project_id='debootcampcglll',
     dag=dag)
+
+
 
 PYSPARK_JOB = {
     "reference": {"project_id": 'debootcampcglll'},
