@@ -30,4 +30,9 @@ task0=BashOperator(
                     bash_command="pip install gsutil",
                     dag=dag
                     )
-task0
+task1=BashOperator(
+                    task_id='install_gsutils',
+                    bash_command="pip install gcloud",
+                    dag=dag
+                    )
+task0>>task1
