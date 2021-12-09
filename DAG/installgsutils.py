@@ -1,3 +1,6 @@
+import airflow
+import ow
+import psycopg2
 from datetime import datetime
 from airflow import DAG
 from airflow.operators.dummy_operator import DummyOperator
@@ -18,8 +21,8 @@ default_args={
     'retry_delay':timedelta(minutes=1)
 }
 
-dag = DAG('install_gsutils', description='Hello World DAG',
-          schedule_interval='0 12 * * *',
+dag = DAG('install_gsutils', description='Install gsutils',
+          schedule_interval='@once',
           start_date=datetime(2017, 3, 20), catchup=False)
 
 task0=BashOperator(
