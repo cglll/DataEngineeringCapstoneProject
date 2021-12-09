@@ -97,8 +97,7 @@ def download():
     storage_client = storage.Client.from_service_account_json(GOOGLE_APPLICATION_CREDENTIALS)
 
     with open(file_path("user_purchase.csv")) as file_obj:
-        storage_client.download_blob_to_file(
-        'gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv', file_obj)`
+        storage_client.download_blob_to_file("gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv", file_obj)`
     #Task
                     
 
