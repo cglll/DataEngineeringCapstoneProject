@@ -97,9 +97,8 @@ def save_cred_to_file():
 
 def download():
     from google.cloud import storage
-    save_cred_to_file()
-    GOOGLE_APPLICATION_CREDENTIALS=file_path("cred.csv")
-
+        Google.Apis.Auth.OAuth2.GoogleCredential cred = Google.Apis.Auth.OAuth2.GoogleCredential.FromJson(JSONString);
+        var storage = Google.Cloud.Storage.V1.StorageClient.Create(cred);
 
     # If you don't specify credentials when constructing the client, the
     # client library will look for credentials in the environment.
@@ -140,7 +139,7 @@ task3=PythonOperator(task_id='csv_to_database',
                     dag=dag)
 
 
-task1>>task2>>task3
+task2>>task3
 
 
 
