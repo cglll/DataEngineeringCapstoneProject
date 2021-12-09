@@ -92,7 +92,8 @@ def csv_to_postgres():
 
 task0=BashOperator(
                     task_id='download_file',
-                    bash_command="gsutil cp gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv ."
+                    bash_command="gsutil cp gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv .",
+                    dag=dag
                     )
 
 task1=PostgresOperator(task_id='create_table',
