@@ -29,7 +29,7 @@ GOOGLE_CONN_ID="google_cloud_default"
 POSTGRES_CONN_ID="postgres_default"
 FILENAME="user.parquet"
 SQL_QUERY="select * from user_purchase"
-bucket_name="databootcampcglllbucket_f1ec"
+bucket_name="databootcampcglllbucket_310c"
 
 upload_data=PostgresToGCSOperator(
             task_id="get_data",
