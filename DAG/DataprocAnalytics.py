@@ -73,10 +73,12 @@ PYSPARK_JOB = {
 run_dataproc_analytic_job= DataprocSubmitJobOperator(
     task_id="reviews_analytic", 
     job=PYSPARK_JOB, 
-    region='us-central1', project_id='debootcampcglll'
+    region='us-central1', project_id='debootcampcglll',
+    gcp_conn_id=GOOGLE_CONN_ID
+
     )
 
 delete_dataproc_cluster=dataproc_operator.DataprocDeleteClusterOperator(
-       task_id="delete_cluster", project_id='debootcampcgll', cluster_name=CLUSTER_NAME, region='us-central1'
+       task_id="delete_cluster", project_id='debootcampcgll', cluster_name=CLUSTER_NAME, region='us-central1',    gcp_conn_id=GOOGLE_CONN_ID
 )
 create_dataproc_cluster>>run_dataproc_analytic_job>>delete_dataproc_cluster
