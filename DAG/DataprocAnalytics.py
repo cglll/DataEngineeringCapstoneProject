@@ -1,5 +1,5 @@
 from airflow.contrib.operators import dataproc_operator
-from airflow.providers.google.cloud.operators.dataproc import ClusterGenerator
+from airflow.providers.google.cloud.operators.dataproc import (ClusterGenerator,DataprocSubmitJobOperator)
 from airflow import DAG
 from datetime import datetime
 from datetime import timedelta
