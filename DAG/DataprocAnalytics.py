@@ -64,7 +64,7 @@ PYSPARK_JOB = {
     "pyspark_job": {"main_python_file_uri": 'gs://databootcampcglllbucket_310c/k/scripts/Jobs-dataproc/testAnalyzingmovie_reviews.py'},
 }
 
-run_dataproc_analytic_job= dataproc_operator.DataprocSubmitJobOperator(
+run_dataproc_analytic_job= DataprocSubmitJobOperator(
     task_id="reviews_analytic", 
     job=PYSPARK_JOB, 
     region='us-central1', project_id='debootcampcglll'
