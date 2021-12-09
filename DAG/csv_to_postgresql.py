@@ -62,7 +62,7 @@ def csv_to_postgres():
     curr = get_postgres_conn.cursor()
     #clean(file_path("user_purchase.csv"),file_path("output.csv"))
     #Load table
-    with open(AIRFLOW_HOME+"/user_purchase.csv"),"r") as f:
+    with open(AIRFLOW_HOME+"/user_purchase.csv","r") as f:
         next(f)
         for row in f:
             row=row.replace('"','')
