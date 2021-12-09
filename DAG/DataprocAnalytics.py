@@ -1,3 +1,4 @@
+from airflow import DAG
 from DAG.postgresql_to_gcs import GOOGLE_CONN_ID
 from airflow.contrib.operators import dataproc_operator
 from airflow.providers.google.cloud.operators.dataproc import (ClusterGenerator,
