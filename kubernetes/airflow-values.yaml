@@ -19,14 +19,14 @@ dags:
     # https example: https://github.com/apache/airflow.git
     #repo: https://github.com/eiffela65/Airflow-Templates
     repo: https://github.com/cglll/DataEngineeringCapstoneProject
-    branch: Second_Deliverable_HelloWorldDAG2
+    branch: ThirdDeliverable
     rev: HEAD
     depth: 1
     # the number of consecutive failures allowed before aborting
     maxFailures: 0
     # subpath within the repo where dags are located
     # should be "" if dags are at repo root
-    subPath: "/2dDeriverableDAG"
+    subPath: "/DAG"
 
 
 logs:

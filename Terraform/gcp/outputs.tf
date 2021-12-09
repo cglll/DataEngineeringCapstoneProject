@@ -24,6 +24,6 @@ output "kubernetes_cluster_host" {
 }
 
 output "bucketrandomname"{
-  value module.storage.bucketname
+  value=module.storage.bucketname
   description="bucket name"
 }
