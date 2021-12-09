@@ -32,7 +32,7 @@ task0=BashOperator(
                     )
 task1=BashOperator(
                     task_id='install_gcloud',
-                    bash_command="pip install gcloud",
+                    bash_command="pip install apache-airflow-providers-google",
                     dag=dag
                     )
 task0>>task1
