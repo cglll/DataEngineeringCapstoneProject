@@ -34,7 +34,7 @@ create_dataproc_cluster = dataproc_operator.DataprocClusterCreateOperator(
     init_actions_uris=['gs://debootcamptest/scripts/python-setup-dataproc/pip-install.sh'],
     image_version='1.4-debian10',
     gcp_conn_id="google_cloud_default",
-    project_id='databootcampcglll'
+    project_id='databootcampcglll',
     dag=dag)
 
 PYSPARK_JOB = {
