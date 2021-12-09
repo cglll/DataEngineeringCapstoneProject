@@ -93,7 +93,6 @@ GOOGLE_CONN_ID="google_cloud_default"
 task0=BashOperator(
                     task_id='authenticate_servaccount',
                     bash_command="gcloud auth activate-service-account --key-file=$json",
-                    google_cloud_conn_id='google_cloud_default',
                     dag=dag
                     )
                     
@@ -101,7 +100,6 @@ task0=BashOperator(
 task1=BashOperator(
                     task_id='download_file',
                     bash_command="gsutil cp gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv .",
-                    google_cloud_conn_id='google_cloud_default',
                     dag=dag
                     )
 
