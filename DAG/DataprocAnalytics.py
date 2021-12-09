@@ -59,7 +59,7 @@ create_dataproc_cluster = DataprocCreateClusterOperator(
     cluster_name=CLUSTER_NAME,
     cluster_config=CLUSTER_GENERATOR_CONFIG,
     project_id='debootcampcglll',
-    gcp_conn_id=GOOGLE_CONN_ID
+    gcp_conn_id=GOOGLE_CONN_ID,
     dag=dag)
 
 
