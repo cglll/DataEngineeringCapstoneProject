@@ -1,3 +1,4 @@
+from DAG.postgresql_to_gcs import GOOGLE_CONN_ID
 from airflow.contrib.operators import dataproc_operator
 from airflow.providers.google.cloud.operators.dataproc import (ClusterGenerator,
                                                                 DataprocSubmitJobOperator,
@@ -46,8 +47,10 @@ CLUSTER_GENERATOR_CONFIG = ClusterGenerator(
     num_workers=2,
     storage_bucket="debootcamptest",
     init_actions_uris=['gs://debootcamptest/scripts/python-setup-dataproc/pip-install.sh'],
-    metadata={'PIP_PACKAGES':'google-cloud-storage spark-nlp==2.7.2'},
+    metadata={'PIP_PACKAGES':'google-cloud-storage spark-nlp==2.7.2'}
 ).make()
+
+GOOGLE_CONN_ID='google_cloud_default'
 
 create_dataproc_cluster = DataprocCreateClusterOperator(
     task_id='create_dataproc_cluster',
@@ -56,6 +59,7 @@ create_dataproc_cluster = DataprocCreateClusterOperator(
     cluster_name=CLUSTER_NAME,
     cluster_config=CLUSTER_GENERATOR_CONFIG,
     project_id='debootcampcglll',
+    gcp_conn_id=GOOGLE_CONN_ID
     dag=dag)
 
 
