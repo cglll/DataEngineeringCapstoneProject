@@ -102,7 +102,8 @@ task1=GCSToLocalFilesystemOperator(
     task_id='download_file',
     object_name='/k/raw-data/user_purchase.csv',
     bucket='databootcampcglllbucket_310c',
-    filename='user_purchase.csv'
+    filename='user_purchase.csv',
+    dag=dag
 )
 
 task2=PostgresOperator(task_id='create_table',
