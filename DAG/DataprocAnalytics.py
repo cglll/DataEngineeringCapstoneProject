@@ -52,17 +52,27 @@ CLUSTER_GENERATOR_CONFIG = ClusterGenerator(
 
 GOOGLE_CONN_ID='google_cloud_default'
 
-create_dataproc_cluster = DataprocCreateClusterOperator(
+# create_dataproc_cluster = DataprocCreateClusterOperator(
+#     task_id='create_dataproc_cluster',
+#     # Give the cluster a unique name by appending the date scheduled.
+#     # See https://airflow.apache.org/code.html#default-variables
+#     cluster_name=CLUSTER_NAME,
+#     cluster_config=CLUSTER_GENERATOR_CONFIG,
+#     project_id='debootcampcglll',
+#     gcp_conn_id=GOOGLE_CONN_ID,
+#     dag=dag)
+
+create_dataproc_cluster = dataproc_operator.DataprocClusterCreateOperator(
     task_id='create_dataproc_cluster',
     # Give the cluster a unique name by appending the date scheduled.
     # See https://airflow.apache.org/code.html#default-variables
     cluster_name=CLUSTER_NAME,
-    cluster_config=CLUSTER_GENERATOR_CONFIG,
-    project_id='debootcampcglll',
-    gcp_conn_id=GOOGLE_CONN_ID,
+    num_workers=4,
+    zone='europe-west1-b',
+    gcp_conn_id='google-dataproc',
+    master_machine_type='n1-standard-4',
+    worker_machine_type='n1-standard-4',
     dag=dag)
-
-
 
 PYSPARK_JOB = {
     "reference": {"project_id": 'debootcampcglll'},
