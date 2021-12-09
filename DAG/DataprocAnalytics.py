@@ -45,7 +45,7 @@ CLUSTER_GENERATOR_CONFIG = ClusterGenerator(
     num_workers=2,
     storage_bucket="debootcamptest",
     init_actions_uris=['gs://debootcamptest/scripts/python-setup-dataproc/pip-install.sh'],
-    metadata={'PIP_PACKAGES=google-cloud-storage spark-nlp==2.7.2'},
+    metadata={'PIP_PACKAGES':'google-cloud-storage spark-nlp==2.7.2'},
 ).make()
 
 create_dataproc_cluster = DataprocCreateClusterOperator(
@@ -54,9 +54,7 @@ create_dataproc_cluster = DataprocCreateClusterOperator(
     # See https://airflow.apache.org/code.html#default-variables
     cluster_name='ReviewNLP',
     cluster_config=CLUSTER_GENERATOR_CONFIG,
-    gcp_conn_id="google_cloud_default",
-    project_id='debootcampcglll',
-    dag=dag)
+    project_id='debootcampcglll')
 
 
 
