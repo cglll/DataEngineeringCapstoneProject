@@ -87,19 +87,26 @@ def csv_to_postgres():
 
 
 GOOGLE_CONN_ID="google_cloud_default"
+GOOGLE_APPLICATION_CREDENTIALS=os.getenv(json)
 
+def download():
+    from google.cloud import storage
 
+    # If you don't specify credentials when constructing the client, the
+    # client library will look for credentials in the environment.
+    storage_client = storage.Client.from_service_account_json(GOOGLE_APPLICATION_CREDENTIALS)
+
+    with open(file_path("user_purchase.csv")) as file_obj:
+        storage_client.download_blob_to_file(
+        'gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv', file_obj)`
     #Task
-task0=BashOperator(
-                    task_id='authenticate_servaccount',
-                    bash_command="gcloud auth activate-service-account --key-file=$json",
-                    dag=dag
-                    )
                     
 
-task1=BashOperator(
+task1=PythonOperator(
                     task_id='download_file',
-                    bash_command="gsutil cp gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv .",
+                    provide_context=True,
+                    python_callable=download,
+                    #bash_command="gsutil cp gs://databootcampcglllbucket_310c/k/raw-data/user_purchase.csv .",
                     dag=dag
                     )
 
@@ -125,7 +132,7 @@ task3=PythonOperator(task_id='csv_to_database',
                     dag=dag)
 
 
-task0>>task1>>task2>>task3
+task1>>task2>>task3
 
 
 
