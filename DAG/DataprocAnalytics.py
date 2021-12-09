@@ -6,6 +6,7 @@ from airflow import DAG
 from datetime import datetime
 from datetime import timedelta
 
+CLUSTER_NAME=reviewnlp
 #default
 default_args={
     'owner':'cglll',
@@ -52,7 +53,7 @@ create_dataproc_cluster = DataprocCreateClusterOperator(
     task_id='create_dataproc_cluster',
     # Give the cluster a unique name by appending the date scheduled.
     # See https://airflow.apache.org/code.html#default-variables
-    cluster_name='ReviewNLP',
+    cluster_name=CLUSTER_NAME,
     cluster_config=CLUSTER_GENERATOR_CONFIG,
     project_id='debootcampcglll',
     dag=dag)
@@ -61,7 +62,7 @@ create_dataproc_cluster = DataprocCreateClusterOperator(
 
 PYSPARK_JOB = {
     "reference": {"project_id": 'debootcampcglll'},
-    "placement": {"cluster_name": 'ReviewNLP'},
+    "placement": {"cluster_name": CLUSTER_NAME},
     "pyspark_job": {"main_python_file_uri": 'gs://databootcampcglllbucket_310c/k/scripts/Jobs-dataproc/testAnalyzingmovie_reviews.py'},
 }
 
@@ -72,6 +73,6 @@ run_dataproc_analytic_job= DataprocSubmitJobOperator(
     )
 
 delete_dataproc_cluster=dataproc_operator.DataprocDeleteClusterOperator(
-       task_id="delete_cluster", project_id='debootcampcgll', cluster_name='ReviewNLP', region='us-central1'
+       task_id="delete_cluster", project_id='debootcampcgll', cluster_name=CLUSTER_NAME, region='us-central1'
 )
 create_dataproc_cluster>>run_dataproc_analytic_job>>delete_dataproc_cluster
