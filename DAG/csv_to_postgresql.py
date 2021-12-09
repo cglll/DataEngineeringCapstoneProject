@@ -87,11 +87,19 @@ def csv_to_postgres():
         get_postgres_conn.commit()
 
 
-GOOGLE_CONN_ID="google_cloud_default"
-GOOGLE_APPLICATION_CREDENTIALS=Variable.get('json')
+
+#GOOGLE_APPLICATION_CREDENTIALS=Variable.get('json')
+
+def save_cred_to_file():
+    text_file = open(file_path("cred.csv"), "w")
+    n = text_file.write(Variable.get('json'))
+    text_file.close()
 
 def download():
     from google.cloud import storage
+    save_cred_to_file()
+    GOOGLE_APPLICATION_CREDENTIALS=file_path("cred.csv")
+
 
     # If you don't specify credentials when constructing the client, the
     # client library will look for credentials in the environment.
