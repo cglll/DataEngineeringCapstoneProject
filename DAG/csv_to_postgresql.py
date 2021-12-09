@@ -6,6 +6,7 @@ from airflow.providers.postgres.operators.postgres import PostgresOperator
 from airflow.operators.python_operator import PythonOperator
 from airflow.operators.bash_operator import BashOperator
 from airflow.hooks.postgres_hook import PostgresHook
+from airflow.models import Variable
 from datetime import timedelta
 from datetime import datetime
 import logging
@@ -87,7 +88,7 @@ def csv_to_postgres():
 
 
 GOOGLE_CONN_ID="google_cloud_default"
-GOOGLE_APPLICATION_CREDENTIALS=os.getenv(json)
+GOOGLE_APPLICATION_CREDENTIALS=Variable.get('json')
 
 def download():
     from google.cloud import storage
